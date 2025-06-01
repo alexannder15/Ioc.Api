@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Application.Exceptions;
 using Application.Interfaces;
-using Domain.Models;
+using Domain.Models.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

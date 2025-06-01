@@ -1,9 +1,10 @@
 ﻿using System.Text;
 using Application.Exceptions;
-using Domain.Models;
+using Application.Interfaces;
+using Domain.Models.Identity;
 using Infrastructure.Context;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -17,6 +18,8 @@ public static class ServiceCollectionExtensions
         IConfiguration configuration
     )
     {
+        services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+
         //services.AddDbContext<AppDbContext>(options =>
         //    options.UseNpgsql(configuration.GetConnectionString("SqlDataBase"))
         //);

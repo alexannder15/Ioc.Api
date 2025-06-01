@@ -2,7 +2,7 @@
 using Application.Exceptions;
 using Application.Interfaces;
 using Domain.Dtos;
-using Domain.Models;
+using Domain.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.Services;

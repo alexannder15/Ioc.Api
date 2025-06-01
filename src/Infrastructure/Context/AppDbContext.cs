@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Domain.Models.Common;
+using Domain.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,8 @@ public class AppDbContext(
     )
 {
     //private readonly IUserContextService _userContextService;
+
+    public DbSet<Ioc> Iocs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

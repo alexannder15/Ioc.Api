@@ -2,7 +2,7 @@
 using Domain.Models.Common;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Models;
+namespace Domain.Models.Identity;
 
 public class User : IdentityUser<int>, IAuditable
 {

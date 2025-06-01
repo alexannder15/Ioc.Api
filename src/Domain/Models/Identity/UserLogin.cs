@@ -1,9 +1,9 @@
 ﻿using Domain.Models.Common;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Models;
+namespace Domain.Models.Identity;
 
-public class UserToken : IdentityUserToken<int>, IAuditable
+public class UserLogin : IdentityUserLogin<int>, IAuditable
 {
     public virtual User? User { get; set; }
 

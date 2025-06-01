@@ -1,4 +1,6 @@
-﻿namespace Domain.Models.Common;
+﻿using Domain.Models.Identity;
+
+namespace Domain.Models.Common;
 
 public interface IAuditable
 {

@@ -1,11 +1,11 @@
 ﻿using Domain.Models.Common;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain.Models;
+namespace Domain.Models.Identity;
 
-public class RoleClaim : IdentityRoleClaim<int>, IAuditable
+public class UserClaim : IdentityUserClaim<int>, IAuditable
 {
-    public virtual Role? Role { get; set; }
+    public virtual User? User { get; set; }
 
     // Auditable
 
