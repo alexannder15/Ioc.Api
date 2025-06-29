@@ -12,7 +12,7 @@ public class IocService(IRepository<Ioc> repository, IMapper mapper) : IIocServi
     {
         var items = await repository.GetAllAsync();
 
-        return mapper.Map<IEnumerable<IocReadDto>>(items.OrderByDescending(x => x.Id));
+        return mapper.Map<IEnumerable<IocReadDto>>(items.OrderBy(x => x.Id));
     }
 
     public async Task<IocReadDto?> GetByIdAsync(int id)

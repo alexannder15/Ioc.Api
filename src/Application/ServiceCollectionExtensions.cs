@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserContextService, UserContextService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtService, JwtService>();
+        services.AddScoped<IIocService, IocService>();
 
         return services;
     }

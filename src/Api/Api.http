@@ -1,27 +1,59 @@
-@Api_HostAddress = http://localhost:5217/api
+@BaseUrl = https://localhost:7015/api
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiIgIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImp0aSI6IjQxMzJlOTMwLWM0OGUtNDZiMS1hYjBlLTgwZDFhM2VmYmRkZSIsImlhdCI6MTc1MTE1NTUwMywibmJmIjoxNzUxMTU1NTAzLCJleHAiOjE3NTExNTkxMDMsImlzcyI6ImlvYyIsImF1ZCI6ImlvYyJ9.gmToNip7c-Atew7z6Mg1eWtuvXs7FEhhoCeaxb3763o
 
-# POST {{Api_HostAddress}}/auth/register
+# POST {{BaseUrl}}/auth/register
 # Content-Type: application/json
 # Accept-Language: en-US,en;q=0.5
 # {
 #     "email": "admin@example.com",
 #     "password": "1QAZzaq!"
 # }
-###
-POST {{Api_HostAddress}}/auth/login
+
+POST {{BaseUrl}}/auth/login
 Content-Type: application/json
-Accept-Language: en-US,en;q=0.5
 {
     "email": "admin@example.com",
     "password": "1QAZzaq!"
 }
 ###
 
-GET {{Api_HostAddress}}/weatherforecast/
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiIgIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImp0aSI6ImViYWE4YmE0LTRmNWEtNGQ1Mi05NjE2LWJiN2JiYzQ5NzNkOCIsImlhdCI6MTc0ODczODgzOCwibmJmIjoxNzQ4NzM4ODM4LCJleHAiOjE3NDg3NDI0MzgsImlzcyI6ImlvYyIsImF1ZCI6ImlvYyJ9.oWmA0Bw1oLwZ-hMjcJPib64hxdpBQreJkCBkuDjsJc8
+GET {{BaseUrl}}/ioc
+Authorization: Bearer {{Token}}
 ###
 
-GET {{Api_HostAddress}}/ioc/
-Accept: application/json
+GET {{BaseUrl}}/ioc/2
+Authorization: Bearer {{Token}}
+###
+
+POST {{BaseUrl}}/ioc
+Content-Type: application/json
+Authorization: Bearer {{Token}}
+{
+    "sha256": "c6014410-e298-4589-acfe-9e6cdec27424",
+    "sha1": "d61d3cf0-b701-439c-a24e-c1a2d1944a07",
+    "md5": "eacc7125-2f6b-4c3a-b7c3-9e3787444929",
+    "mcafee": "62261a17-5620-4516-b414-4e35778008ab",
+    "Engines": "some engines"
+}
+###
+
+PUT {{BaseUrl}}/ioc/2
+Content-Type: application/json
+Authorization: Bearer {{Token}}
+{
+    "sha256": "c6014410-e298-4589-acfe-9e6cdec27424 updated",
+    "sha1": "d61d3cf0-b701-439c-a24e-c1a2d1944a07 updated",
+    "md5": "eacc7125-2f6b-4c3a-b7c3-9e3787444929 updated",
+    "mcafee": "62261a17-5620-4516-b414-4e35778008ab updated",
+    "Engines": "some engines updated"
+}
+###
+
+DELETE {{BaseUrl}}/ioc/2
+Authorization: Bearer {{Token}}
+###
+
+GET {{Api_HostAddress}}/weatherforecast
+Content-Type: application/json
+Authorization: Bearer {{Token}}
 ###

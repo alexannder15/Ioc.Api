@@ -1,6 +1,6 @@
 ﻿namespace Application.Exceptions;
 
-internal class IocNotFoundException : Exception
+public class IocNotFoundException : Exception
 {
     public IocNotFoundException(string message)
         : base(message) { }

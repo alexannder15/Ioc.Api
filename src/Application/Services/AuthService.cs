@@ -30,16 +30,15 @@ public class AuthService(UserManager<User> userManager, IJwtService jwtService) 
             return jwtService.GenerateJwtToken(user);
 
         throw new UnhandledException(
-            $"Something was wrong with Register!:  {JsonSerializer.Serialize(isCreated.Errors)}"
+            $"Something was wrong with Register!: {JsonSerializer.Serialize(isCreated.Errors)}"
         );
     }
 
     public async Task<string> LoginAsync(LoginUserDto loginUser)
     {
-        User? user = await userManager.FindByEmailAsync(loginUser.Email);
-
-        if (user == null)
-            throw new EmailNotFoundException("User doesn't exist");
+        User? user =
+            await userManager.FindByEmailAsync(loginUser.Email)
+            ?? throw new EmailNotFoundException("User doesn't exist");
 
         bool isCorrect = await userManager.CheckPasswordAsync(user, loginUser.Password);
 

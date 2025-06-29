@@ -1,4 +1,6 @@
-﻿using Application.Interfaces;
+﻿using Api.Controllers.Common;
+using Application.Exceptions;
+using Application.Interfaces;
 using Domain.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +9,7 @@ namespace Api.Controllers;
 public class IocController(IIocService iocService) : SecurityJwtController
 {
     [HttpGet]
-    public async Task<IActionResult> GetAllIocsAsync()
+    public async Task<IActionResult> GetAllAsync()
     {
         var items = await iocService.GetAllAsync();
 
@@ -15,18 +17,17 @@ public class IocController(IIocService iocService) : SecurityJwtController
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetIocByIdAsync(int id)
+    public async Task<IActionResult> GetByIdAsync(int id)
     {
-        var item = await iocService.GetByIdAsync(id);
-
-        if (item == null)
-            return NotFound("error.not_found");
+        var item =
+            await iocService.GetByIdAsync(id)
+            ?? throw new IocNotFoundException($"Ioc with id: {id} not found");
 
         return Ok(item);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateIocAsync(IocCreateDto ioc)
+    public async Task<IActionResult> CreateAsync(IocCreateDto ioc)
     {
         await iocService.AddAsync(ioc);
 
@@ -34,7 +35,7 @@ public class IocController(IIocService iocService) : SecurityJwtController
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateIocAsync(int id, IocUpdateDto ioc)
+    public async Task<IActionResult> UpdateAsync(int id, IocUpdateDto ioc)
     {
         //var item = await iocService.GetByIdAsync(id);
         //if (item == null)
@@ -46,7 +47,7 @@ public class IocController(IIocService iocService) : SecurityJwtController
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteIocAsync(int id)
+    public async Task<IActionResult> DeleteAsync(int id)
     {
         await iocService.DeleteAsync(id);
 

@@ -40,6 +40,11 @@ public class ErrorHandlerMiddleware(ILogger<ErrorHandlerMiddleware> logger, Requ
                     message = error.Message;
                     break;
 
+                case IocNotFoundException:
+                    errorCode = "400.04.001";
+                    message = error.Message;
+                    break;
+
                 case UnhandledException:
                     errorCode = "500.99.001";
                     message = error.Message;

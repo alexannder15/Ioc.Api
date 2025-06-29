@@ -14,12 +14,16 @@ namespace Infrastructure;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructureCustomExtensions(
-        this IServiceCollection services,
-        IConfiguration configuration
+        this IServiceCollection services
     )
     {
         services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
+        return services;
+    }
+
+    public static IServiceCollection AddCustomIdentity(this IServiceCollection services)
+    {
         //services.AddDbContext<AppDbContext>(options =>
         //    options.UseNpgsql(configuration.GetConnectionString("SqlDataBase"))
         //);
@@ -31,6 +35,14 @@ public static class ServiceCollectionExtensions
         //.AddDefaultUI()
         //.AddDefaultTokenProviders();
 
+        return services;
+    }
+
+    public static IServiceCollection AddCustomAuthenticationJwt(
+        this IServiceCollection services,
+        IConfiguration configuration
+    )
+    {
         services
             .AddAuthentication(opts =>
             {

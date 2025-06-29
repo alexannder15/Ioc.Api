@@ -1,12 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var postgres = builder
-    .AddPostgres("postgres")
-    .WithPgAdmin(pgAdmin => pgAdmin.WithHostPort(5050))
-    .WithDataVolume(isReadOnly: false);
+var sql = builder.AddSqlServer("sql").WithLifetime(ContainerLifetime.Persistent);
 
-var postgresdb = postgres.AddDatabase("ioc");
+var db = sql.AddDatabase("ioc");
 
-builder.AddProject<Projects.Api>("api").WithReference(postgresdb);
+builder.AddProject<Projects.Api>("api").WithReference(db).WaitFor(db);
 
 builder.Build().Run();
