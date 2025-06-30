@@ -3,6 +3,7 @@ using Api.ServiceExtensions;
 using Application;
 using Infrastructure;
 using Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,13 @@ builder.AddServiceDefaults();
 
 builder.Services.AddHealthChecks();
 
-builder.AddSqlServerDbContext<AppDbContext>(connectionName: "ioc");
+if (builder.Environment.IsDevelopment())
+    builder.AddSqlServerDbContext<AppDbContext>(connectionName: "ioc");
+else
+{
+    var conn = builder.Configuration.GetConnectionString("ioc");
+    builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(conn));
+}
 
 builder.Services.AddHttpContextAccessor();
 
