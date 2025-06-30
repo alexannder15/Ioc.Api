@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.AddServiceDefaults();
 
+builder.Services.AddHealthChecks();
+
 builder.AddSqlServerDbContext<AppDbContext>(connectionName: "ioc");
 
 builder.Services.AddHttpContextAccessor();
@@ -28,6 +30,8 @@ builder.Services.AddOpenApi();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
+
+app.MapHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
