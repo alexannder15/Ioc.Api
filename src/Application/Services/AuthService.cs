@@ -16,13 +16,7 @@ public class AuthService(UserManager<User> userManager, IJwtService jwtService) 
         if (userByEmail != null)
             throw new EmailAlreadyExistException("Email already exist");
 
-        var user = new User
-        {
-            Email = createUser.Email,
-            UserName = createUser.Email,
-            FirstName = createUser.FirstName,
-            LastName = createUser.LastName,
-        };
+        var user = new User(createUser.Email, createUser.Password);
 
         var isCreated = await userManager.CreateAsync(user, createUser.Password);
 

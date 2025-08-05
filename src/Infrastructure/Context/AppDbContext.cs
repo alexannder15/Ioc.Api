@@ -1,21 +1,21 @@
-﻿using Domain.Models;
+﻿using System.Security.Claims;
+using Domain.Models;
 using Domain.Models.Common;
 using Domain.Models.Identity;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Context;
 
 public class AppDbContext(
-    DbContextOptions<AppDbContext> options
-//IUserContextService userContextService
+    DbContextOptions<AppDbContext> options,
+    IHttpContextAccessor httpContextAccessor
 )
     : IdentityDbContext<User, Role, int, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>(
         options
     )
 {
-    //private readonly IUserContextService _userContextService;
-
     public DbSet<Ioc> Iocs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -139,7 +139,12 @@ public class AppDbContext(
                 && (e.State == EntityState.Added || e.State == EntityState.Modified)
             );
 
-        User user = new() { Id = 1 };
+        int? userId = int.TryParse(
+            httpContextAccessor?.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier),
+            out var id
+        )
+            ? id
+            : null;
 
         // For each entity we will set the Audit properties
         foreach (var entityEntry in entries)
@@ -149,7 +154,7 @@ public class AppDbContext(
             if (entityEntry.State == EntityState.Added)
             {
                 ((IAuditable)entityEntry.Entity).CreatedOn = DateTime.UtcNow;
-                ((IAuditable)entityEntry.Entity).CreatedById = user.Id;
+                ((IAuditable)entityEntry.Entity).CreatedById = userId;
             }
 
             // If the entity state is Modified let's set
@@ -157,7 +162,7 @@ public class AppDbContext(
             if (entityEntry.State == EntityState.Modified)
             {
                 ((IAuditable)entityEntry.Entity).UpdatedOn = DateTime.UtcNow;
-                ((IAuditable)entityEntry.Entity).UpdatedById = user.Id;
+                ((IAuditable)entityEntry.Entity).UpdatedById = userId;
             }
         }
 

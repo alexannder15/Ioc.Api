@@ -35,4 +35,13 @@ public class User : IdentityUser<int>, IAuditable
     public User? CreatedBy { get; set; }
     public int? UpdatedById { get; set; }
     public User? UpdatedBy { get; set; }
+
+    public User(string email, string passwordHash)
+    {
+        Email = email;
+        UserName = email;
+        PasswordHash = passwordHash;
+        State = UserState.Active;
+        CreatedOn = DateTime.UtcNow;
+    }
 }

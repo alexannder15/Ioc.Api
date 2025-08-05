@@ -17,4 +17,8 @@ public class Role : IdentityRole<int>, IAuditable
     public User? CreatedBy { get; set; }
     public int? UpdatedById { get; set; }
     public User? UpdatedBy { get; set; }
+
+    public Role() { }
+
+    public Role(string roleName) => Name = roleName;
 }
