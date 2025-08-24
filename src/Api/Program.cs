@@ -19,7 +19,6 @@ builder.Services.AddInfrastructureCustomExtensions();
 builder.Services.AddCustomIdentity();
 builder.Services.AddCustomAuthenticationJwt(builder.Configuration);
 builder.Services.AddCustomCors();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllers();
 
